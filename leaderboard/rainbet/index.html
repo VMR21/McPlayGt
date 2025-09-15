@@ -554,17 +554,20 @@
                 `${days}D ${hours}H ${minutes}M ${seconds}S`;
         }
 
-        // Button and toggle logic
-        async function updatePrevToggleLeaderboard() {
-            const btn = document.getElementById('prev-leaderboard-btn');
-            if (showingPrevLeaderboard) {
-                btn.innerHTML = `<i class="fa-solid fa-trophy"></i> CURRENT LEADERBOARD`;
-                await updateLeaderboard(true);
-            } else {
-                btn.innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> PREVIOUS LEADERBOARD`;
-                await updateLeaderboard(false);
-            }
-        }
+async function updatePrevToggleLeaderboard() {
+    const btn = document.getElementById('prev-leaderboard-btn');
+    const countdownContainer = document.getElementById('countdown-container');
+    if (showingPrevLeaderboard) {
+        btn.innerHTML = `<i class="fa-solid fa-trophy"></i> CURRENT LEADERBOARD`;
+        countdownContainer.style.display = 'block'; // Show countdown for current leaderboard
+        await updateLeaderboard(true);
+    } else {
+        btn.innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> PREVIOUS LEADERBOARD`;
+        countdownContainer.style.display = 'none'; // Hide countdown for previous leaderboard
+        await updateLeaderboard(false);
+    }
+}
+
 
         // Rules modal
         function openRulesModal() {
