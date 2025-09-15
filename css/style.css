@@ -11,59 +11,51 @@
 }
 
 :root {
-  /* Sky-themed Color Palette */
+  /* Dark Sky & Stormy Cloud Color Palette */
   --heading-family: "Chakra Petch", sans-serif;
 
   /* Background Colors */
-  --color-bg-primary: #f0f4f8; /* A very light gray-blue, like a hazy morning sky */
-  --color-bg-secondary: #e3f2fd; /* A light, soft sky blue */
-  --color-bg-tertiary: #c5e1fd; /* A slightly deeper, vibrant sky blue */
+  --color-bg-primary: #1a2336; /* Deep midnight blue */
+  --color-bg-secondary: #2c3e50; /* Dark slate gray */
+  --color-bg-tertiary: #34495e; /* Muted steel blue */
   
   /* Accent Colors */
-  --color-accent: #3498db; /* A classic, bright blue */
-  --color-accent-hover: #5d92d1; /* A gentle, purplish-blue for depth */
-  --color-accent-active: #2980b9; /* A darker blue for a pressed state */
+  --color-accent: #3b82f6; /* A bolt of electric blue */
+  --color-accent-hover: #60a5fa; /* Lighter blue for effect */
+  --color-accent-active: #2563eb; /* Deeper blue for active state */
   
   /* Text Colors */
-  --color-text-primary: #1c2b3a; /* A dark, deep blue for main text */
-  --color-text-secondary: #4a6c8e; /* A muted blue-gray for secondary text */
-  --color-text-tertiary: #95a5a6; /* A light gray for subtle details */
-  --color-text-disabled: #bdc3c7; /* A soft, very light gray */
+  --color-text-primary: #ecf0f1; /* Off-white, like distant clouds */
+  --color-text-secondary: #bdc3c7; /* Lighter gray for secondary text */
+  --color-text-tertiary: #95a5a6; /* Soft gray for subtle details */
+  --color-text-disabled: #4e5c6a; /* Dark gray for disabled elements */
   
   /* Border Colors */
-  --color-border-default: #d1d8e0; /* A soft, light gray border */
-  --color-border-hover: #9bb2c6; /* A more pronounced blue-gray border on hover */
-  --color-border-focus: #3498db; /* Blue border to indicate focus */
+  --color-border-default: #4e5c6a; /* Dark gray border */
+  --color-border-hover: #6c7a89; /* Lighter border on hover */
+  --color-border-focus: #3b82f6; /* Blue focus border */
   
   /* Surface Colors */
-  --color-surface-card: #ffffff; /* Pure white for cards, like clouds */
-  --color-surface-overlay: rgba(255, 255, 255, 0.9); /* Semi-transparent white overlay */
-  --color-surface-modal: #f8f9fa; /* Off-white for modals */
+  --color-surface-card: #2c3e50; /* Matches secondary background */
+  --color-surface-overlay: rgba(26, 35, 54, 0.9); /* Semi-transparent midnight blue */
+  --color-surface-modal: #1e2a3b; /* Slightly darker than primary background */
   
   /* State Colors */
-  --color-state-success: #2ecc71; /* A natural green, like grass on a sunny day */
-  --color-state-error: #e74c3c; /* A strong red for alerts */
-  --color-state-warning: #f1c40f; /* A bright, sunny yellow for warnings */
-  --color-state-info: #3498db; /* The main blue accent for info */
+  --color-state-success: #2ecc71; /* A subtle, natural green */
+  --color-state-error: #e74c3c; /* A warning red */
+  --color-state-warning: #f39c12; /* A lightning-like yellow */
+  --color-state-info: #3b82f6; /* Electric blue info color */
   
   /* Legacy Variables (updated to new colors) */
-  --bgColorBack: #f0f4f8;
-  --white-color: #ffffff;
-  --black-color: #1c2b3a; /* Updated to a deep blue-black for contrast */
-  --text-color: #1c2b3a;
-  --red-color-bg-1: #3498db;
-  --red-color-bg-2: #2980b9;
-  --red-color-bg-3: #f0f4f8;
-  --red-color-bg-4: #3498db;
+  --bgColorBack: #1a2336;
+  --white-color: #ecf0f1;
+  --black-color: #1a2336;
+  --text-color: #ecf0f1;
+  --red-color-bg-1: #3b82f6;
+  --red-color-bg-2: #2563eb;
+  --red-color-bg-3: #1a2336;
+  --red-color-bg-4: #3b82f6;
 }
-body {
-  background-color: var(--color-bg-primary);
-  background-image: url("/assets/p-bg.png");
-  background-repeat: no-repeat;
-  background-position: top center;
-  padding-top: 100px; /* Account for fixed navbar height */
-}
-
 .d-flex {
   display: flex;
   gap: 20px;
