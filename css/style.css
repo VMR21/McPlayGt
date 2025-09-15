@@ -11,50 +11,50 @@
 }
 
 :root {
-  /* Classic Dark Color Palette */
+  /* Font */
   --heading-family: "Chakra Petch", sans-serif;
 
   /* Background Colors */
   --color-bg-primary: #000000;
   --color-bg-secondary: #0a0a0a;
-  --color-bg-tertiary: #1a1a1a;
-  
+  --color-bg-tertiary: #222222;
+
   /* Accent Colors */
-  --color-accent: #3b82f6;
-  --color-accent-hover: #6D28D9;
-  --color-accent-active: #5B21B6;
-  
+  --color-accent: #2563eb; /* Slightly deeper bright blue */
+  --color-accent-hover: #4f46e5; /* Softer purple-blue hover */
+  --color-accent-active: #5B21B6; /* Retain original active purple */
+
   /* Text Colors */
   --color-text-primary: #ffffff;
   --color-text-secondary: #e0e0e0;
-  --color-text-tertiary: #a0a0a0;
+  --color-text-tertiary: #9ca3af; /* Cooler gray for better readability */
   --color-text-disabled: #666666;
-  
+
   /* Border Colors */
   --color-border-default: #2a2a2a;
   --color-border-hover: #3a3a3a;
-  --color-border-focus: #3b82f6;
-  
+  --color-border-focus: #2563eb; /* Match refined accent */
+
   /* Surface Colors */
   --color-surface-card: #0a0a0a;
-  --color-surface-overlay: #1a1a1a;
+  --color-surface-overlay: #222222;
   --color-surface-modal: #0f0f0f;
-  
+
   /* State Colors */
   --color-state-success: #10b981;
   --color-state-error: #ef4444;
   --color-state-warning: #f59e0b;
-  --color-state-info: #3b82f6;
-  
+  --color-state-info: #2563eb;
+
   /* Legacy Variables (updated to new colors) */
   --bgColorBack: #000000;
   --white-color: #ffffff;
   --black-color: #000000;
   --text-color: #ffffff;
-  --red-color-bg-1: #3b82f6;
-  --red-color-bg-2: #3b82f6;
+  --red-color-bg-1: #2563eb;
+  --red-color-bg-2: #2563eb;
   --red-color-bg-3: #000000;
-  --red-color-bg-4: #3b82f6;
+  --red-color-bg-4: #2563eb;
 }
 
 body {
