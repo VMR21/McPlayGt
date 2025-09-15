@@ -1,387 +1,492 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>McPlayGT | Rainbet Leaderboard</title>
-  <link rel="stylesheet" href="/css/style.css" />
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-  <link
-    rel="icon"
-    href="https://i.postimg.cc/PxjzYRr0/image.png"
-    type="image/png"
-  />
-  <style>
-    /* Minimal styles to prevent layout break by countdown */
-    #date-range-container {
-      text-align: center;
-      margin: 20px 0;
-      color: #ffd500;
-      font-weight: 600;
-      font-size: 16px;
-    }
-    #countdown {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 6px;
-    }
-    #countdown .counter {
-      background: #222;
-      padding: 8px 10px;
-      border-radius: 8px;
-      min-width: 52px;
-      font-weight: 700;
-      color: #ffd500;
-    }
-    #countdown .label {
-      font-size: 12px;
-      text-align: center;
-      margin-top: 2px;
-      color: #ffd500cc;
-      font-weight: 600;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>McPlayGT | Rainbet Leaderboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="https://i.postimg.cc/PxjzYRr0/image.png" type="image/png">
+    <meta name="description" content="McPlayGT - Exclusive wager races!">
+    <meta name="author" content="McPlayGT">
+    <style>
+        /* Insert your existing styles here or link to your stylesheet as before */
+        .rules-btn { margin-left: 15px; background: linear-gradient(135deg, #b7a101 0%, #ffd500 100%); border: none; cursor: pointer; transition: all 0.3s ease; padding: 8px 16px; border-radius: 5px; font-weight: 600; }
+        .rules-btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 213, 0, 0.3); }
+        .countdown-container { text-align: center; margin-bottom: 15px; }
+        .date-range { font-weight: bold; color: #FFD500; margin-bottom: 4px; font-size: 16px; }
+        #last-date-note { font-size: 15px; color: #bbb; margin-bottom: 8px; }
+        .count-down .counter { display: inline-block; min-width: 56px; margin: 0 4px; background: #222; padding: 8px 6px; border-radius: 8px;}
+        .count-down .label { font-size: 11px; color: #FFD500; }
+        .count-down { display: flex; justify-content: center; gap: 15px;}
+        .leaderBoardTable { margin-top: 18px; }
+        /* ... rest of your CSS ... */
+    </style>
 </head>
 <body>
-  <!-- Rules Modal (unchanged) ... -->
-
-  <!-- Header and other markup unchanged ... -->
-
-  <section class="swiperSection">
-    <div class="container">
-      <!-- ... other markup unchanged ... -->
-
-      <div class="modelButtons d-flex align-center justify-center">
-        <p class="btnPara" id="site-code">CODE: LOADING...</p>
-        <button class="btnPara rules-btn" id="prev-leaderboard-btn" style="margin-left: 12px;">
-          <i class="fa-solid fa-clock-rotate-left"></i> PREVIOUS LEADERBOARD
-        </button>
-        <button class="btnPara rules-btn" id="rules-btn" style="display: none;">
-          <i class="fa-solid fa-info-circle"></i> RULES
-        </button>
-      </div>
-
-      <!-- Countdown & Date Range container -->
-      <div id="date-range-container">
-        <!-- Content inserted dynamically -->
-      </div>
-
-      <!-- Leaderboard cards and table markup remain unchanged -->
-      <div class="row gridRow d-flex align-center justify-center">
-        <!-- Top 3 Cards as before (user-1, user-2, user-3) -->
-      </div>
-      <div class="row leaderBoardTable fade-in">
-        <div class="col-12" style="overflow-x: auto;">
-          <table id="customers">
-            <tr>
-              <th>Place</th>
-              <th>User</th>
-              <th>WAGERED</th>
-              <th>Reward</th>
-            </tr>
-            <!-- dynamically filled by JS -->
-          </table>
+    <!-- Rules Modal (unchanged) -->
+    <div id="rulesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Rainbet Leaderboard Rules</h2>
+                <span class="modal-close" onclick="closeRulesModal()">×</span>
+            </div>
+            <div class="modal-body">
+                <h3>Disclaimer</h3>
+                <ul class="rules-list">
+                    <li>Every bet on code McPlayGT is counted.</li>
+                </ul>
+            </div>
         </div>
-      </div>
     </div>
-  </section>
-
-  <!-- Footer unchanged -->
-
-  <script>
-    const siteConfig = {
-      rainbet: {
-        name: 'Rainbet',
-        code: 'McPlayGT',
-        url: 'https://rainbet.com/?r=McPlayGT',
-        coinIcon: '',
-        coinSymbol: '$',
-        rewardStructure: {
-          1: 400, 2: 200, 3: 100, 4: 50, 5: 25, 6: 25, 7: 0, 8: 0, 9: 0, 10: 0,
-        },
-      },
-    };
-
-    let showingPrevLeaderboard = false;
-    let timerInterval = null;
-
-    function getCurrentSite() {
-      const path = window.location.pathname;
-      const match = path.match(/\/leaderboard\/(\w+)/);
-      return match ? match[1] : 'rainbet';
-    }
-
-    function formatDateShort(date) {
-      const day = date.getDate();
-      let suffix = 'th';
-      if (day === 1 || day === 21 || day === 31) suffix = 'st';
-      else if (day === 2 || day === 22) suffix = 'nd';
-      else if (day === 3 || day === 23) suffix = 'rd';
-      const month = date.toLocaleString('en-US', { month: 'short' });
-      const year = date.getFullYear();
-      return `${day}${suffix} ${month} ${year}`;
-    }
-
-    function getCurrentLeaderboardRange() {
-      const now = new Date();
-      return {
-        start: new Date(now.getFullYear(), now.getMonth(), 1),
-        end: new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59),
-      };
-    }
-
-    function showDateAndCountdown(usePrev) {
-      const container = document.getElementById('date-range-container');
-      container.innerHTML = '';
-
-      if (usePrev) {
-        // Show previous month range only, no countdown
-        const now = new Date();
-        const prevFrom = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-        const prevTo = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59);
-        container.innerHTML = `<div>${formatDateShort(prevFrom)} - ${formatDateShort(prevTo)}</div>
-          <div style="color: #999; font-size: 14px; margin-top: 4px;">This leaderboard has ended.</div>`;
-        if (timerInterval) clearInterval(timerInterval);
-        timerInterval = null;
-      } else {
-        // Show current month countdown
-        const { start, end } = getCurrentLeaderboardRange();
-        container.innerHTML = `<div>${formatDateShort(start)} - ${formatDateShort(end)}</div>
-          <div style="margin-top: 6px; color: #bbb;">Ends in:</div>
-          <div id="countdown">
-            <div class="counter"><div class="number days">00</div><div class="label">Days</div></div>
-            <div class="counter"><div class="number hours">00</div><div class="label">Hours</div></div>
-            <div class="counter"><div class="number minutes">00</div><div class="label">Minutes</div></div>
-            <div class="counter"><div class="number seconds">00</div><div class="label">Seconds</div></div>
-          </div>`;
-
-        if (timerInterval) clearInterval(timerInterval);
-
-        function updateCountdown() {
-          const now = Date.now();
-          const distance = end.getTime() - now;
-          let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-          let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-          let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-          if (distance < 0) {
-            days = hours = minutes = seconds = 0;
-          }
-          container.querySelector('.days').textContent = String(days).padStart(2, '0');
-          container.querySelector('.hours').textContent = String(hours).padStart(2, '0');
-          container.querySelector('.minutes').textContent = String(minutes).padStart(2, '0');
-          container.querySelector('.seconds').textContent = String(seconds).padStart(2, '0');
+    <div class="bg-gradient"></div>
+    <canvas id="particleCanvas"></canvas>
+    <header class="header-v2">
+        <!-- Header content, unchanged -->
+        <div class="header-wrapper">
+            <div class="logo-area">
+                <a href="/"><img src="https://i.postimg.cc/WhjWXnFD/image.png" alt="McPlayGT" class="header-logo"></a>
+                <div class="live-status">
+                    <button id="liveButton" class="live-button offline">
+                        <img src="https://i.postimg.cc/vT6Yy35H/image.png" alt="Kick" class="kick-icon">
+                        <span>OFFLINE</span>
+                    </button>
+                </div>
+            </div>
+            <div class="nav-area desktop-nav">
+                <a href="/" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+                <a href="/leaderboard" class="nav-item active"><i class="fa-solid fa-trophy"></i><span>Leaderboards</span></a>
+            </div>
+            <div class="menu-toggle">
+                <button onclick="openNav()" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+    <section class="swiperSection">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="boxContent fade-in">
+                        <h4 class="center" id="leaderboard-heading">Rainbet Leaderboard</h4>
+                    </div>
+                    <div class="swiperContent">
+                        <div class="paymentBtn d-flex align-center justify-center scale-in" id="gf-BtnContainer">
+                            <button class="gf-btn stagger-item" onclick="window.location.href='/leaderboard/rainbet'">
+                                <img src="https://i.postimg.cc/mthzQ70c/image.png" alt="Roobet" class="img-fluid paymentLogo">
+                            </button>
+                        </div>
+                        <div class="gallery sets">
+                            <div class="gf-column bollywood show">
+                                <div class="contentSwiperTop fade-in">
+                                    <div class="modelButtons d-flex align-center justify-center">
+                                        <p class="btnPara" id="site-code">CODE: LOADING...</p>
+                                        <button class="btnPara rules-btn" id="prev-leaderboard-btn" style="margin-left: 12px;">
+                                            <i class="fa-solid fa-clock-rotate-left"></i> PREVIOUS LEADERBOARD
+                                        </button>
+                                        <button class="btnPara rules-btn" id="rules-btn" style="display: none;">
+                                            <i class="fa-solid fa-info-circle"></i> RULES
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- Date Range + Countdown container -->
+                                <div class="countdown-container" id="date-range-container">
+                                    <!-- Populated by JS -->
+                                </div>
+                                <div class="row gridRow d-flex align-center justify-center">
+                                    <div class="box-1 box stagger-item">
+                                        <div class="imgNumberBox">
+                                            <img src="https://i.postimg.cc/sXFPrDBk/rainbetlogo.png" alt="" class="img-fluid" id="user-2-img">
+                                            <div class="boxNumber">
+                                                <p>2</p>
+                                                <i class="fa-solid fa-diamond"></i>
+                                            </div>
+                                        </div>
+                                        <h1 class="mainHeading" id="user-2-name">...</h1>
+                                        <p class="mainPara">Wagered</p>
+                                        <div class="imgprice d-flex align-center justify-center">
+                                            <img src="" alt="" class="coin-icon" id="coin-icon-2">
+                                            <p id="user-2-wagered">0.00</p>
+                                        </div>
+                                        <div class="underlineTextLogo d-flex align-center">
+                                            <div class="underline"></div>
+                                        </div>
+                                        <div class="priceBtn d-flex align-center justify-center">
+                                            <img src="" alt="" class="coin-icon" id="prize-coin-icon-2">
+                                            <p id="user-2-price">0.00</p>
+                                        </div>
+                                    </div>
+                                    <div class="box-2 box stagger-item">
+                                        <div class="imgNumberBox">
+                                            <img src="https://i.postimg.cc/sXFPrDBk/rainbetlogo.png" alt="" class="img-fluid" id="user-1-img">
+                                            <div class="boxNumber">
+                                                <p>1</p>
+                                                <i class="fa-solid fa-diamond"></i>
+                                            </div>
+                                        </div>
+                                        <h1 class="mainHeading" id="user-1-name">...</h1>
+                                        <p class="mainPara">Wagered</p>
+                                        <div class="imgprice d-flex align-center justify-center">
+                                            <img src="" alt="" class="coin-icon" id="coin-icon-1">
+                                            <p id="user-1-wagered">0.00</p>
+                                        </div>
+                                        <div class="underlineTextLogo d-flex align-center">
+                                            <div class="underline"></div>
+                                        </div>
+                                        <div class="priceBtn d-flex align-center justify-center">
+                                            <img src="" alt="" class="coin-icon" id="prize-coin-icon-1">
+                                            <p id="user-1-price">0.00</p>
+                                        </div>
+                                    </div>
+                                    <div class="box-3 box stagger-item">
+                                        <div class="imgNumberBox">
+                                            <img src="https://i.postimg.cc/sXFPrDBk/rainbetlogo.png" alt="" class="img-fluid" id="user-3-img">
+                                            <div class="boxNumber">
+                                                <p>3</p>
+                                                <i class="fa-solid fa-diamond"></i>
+                                            </div>
+                                        </div>
+                                        <h1 class="mainHeading" id="user-3-name">...</h1>
+                                        <p class="mainPara">Wagered</p>
+                                        <div class="imgprice d-flex align-center justify-center">
+                                            <img src="" alt="" class="coin-icon" id="coin-icon-3">
+                                            <p id="user-3-wagered">0.00</p>
+                                        </div>
+                                        <div class="underlineTextLogo d-flex align-center">
+                                            <div class="underline"></div>
+                                        </div>
+                                        <div class="priceBtn d-flex align-center justify-center">
+                                            <img src="" alt="" class="coin-icon" id="prize-coin-icon-3">
+                                            <p id="user-3-price">0.00</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row leaderBoardTable fade-in">
+                                    <div class="col-12" style="overflow-x: auto;">
+                                        <table id="customers">
+                                            <tr>
+                                                <th>Place</th>
+                                                <th>User</th>
+                                                <th>WAGERED</th>
+                                                <th>Reward</th>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- leaderboard table ends here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="footer-compact">
+                <div class="footer-main">
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/McPlayGT" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://discord.gg/6FEn66ymvc" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+                        <a href="https://kick.com/mcplaygt" aria-label="Kick"><i class="fa-brands fa-kickstarter"></i></a>
+                        <a href="https://tiktok.com/@mcplaygt" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://twitter.com/mcplaygt" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="https://youtube.com/c/mcplaygt" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="https://twitch.tv/McPlayGT" aria-label="Twitch"><i class="fa-brands fa-twitch"></i></a>
+                        <a href="https://discord.gg/ktbvU9DhMp" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+                    </div>
+                    <div class="footer-links">
+                        <a href="/">Home</a>
+                        <a href="/leaderboard">Leaderboards</a>
+                        <a href="https://www.gambleaware.org/">BeGambleAware</a>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p class="disclaimer">Gamble responsibly (18+). We do not take responsibility for any losses from
+                        gambling sites linked or promoted on our website.</p>
+                    <p class="copyright">© 2025 McPlayGT</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Configuration remains as before
+        const siteConfig = {
+            rainbet: {
+                name: 'Rainbet',
+                code: 'McPlayGT',
+                url: 'https://rainbet.com/?r=McPlayGT',
+                coinIcon: '',
+                coinSymbol: '$',
+                rewardStructure: {
+                    1: 400,2: 200,3: 100,4: 50,5: 25,6: 25,7: 0,8: 0,9: 0,10: 0,
+                }
+            },
+        };
+        function getCurrentSite() {
+            const path = window.location.pathname;
+            const match = path.match(/\/leaderboard\/(\w+)/); return match ? match[1] : 'rainbet'; 
         }
-
-        updateCountdown();
-        timerInterval = setInterval(updateCountdown, 1000);
-      }
-    }
-
-    function truncateText(text, maxLength = 12) {
-      return text?.length > maxLength ? text.substring(0, maxLength) + '...' : text;
-    }
-
-    function getPrizeForRank(rank, rewardStructure, coinSymbol) {
-      const prize = rewardStructure[rank];
-      if (prize !== undefined) {
-        return `${coinSymbol} ${prize.toLocaleString('en-US', {
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 0,
-        })}`;
-      }
-      return 'N/A';
-    }
-
-    async function updateLeaderboard(usePrev = false) {
-      try {
-        const site = getCurrentSite();
-        const url = usePrev
-          ? 'https://colebeardata.onrender.com/leaderboard/prev'
-          : 'https://Sutchyyyslotsdata.onrender.com/leaderboard/top14';
-        const response = await fetch(url);
-        const data = await response.json();
-
-        const config = siteConfig[site];
-        data.sort((a, b) => b.weightedWager - a.weightedWager);
-
-        for (let i = 1; i <= 3; i++) {
-          const user = data[i - 1];
-          const rank = i;
-          if (user) {
-            document.getElementById(`user-${i}-img`).src =
-              user.img || 'https://i.postimg.cc/sXFPrDBk/rainbetlogo.png';
-            const wageredText = user.weightedWager.toLocaleString('en-US', {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
+        function updateActiveButton() {
+            const site = getCurrentSite();
+            document.querySelectorAll('.gf-btn').forEach(btn => {
+                btn.classList.remove('gf-btn-active');
+                const onclickAttr = btn.getAttribute('onclick');
+                const match = onclickAttr && onclickAttr.match(/\/leaderboard\/(\w+)/);
+                if (match && match[1] === site) {
+                    btn.classList.add('gf-btn-active');
+                }
             });
-            document.getElementById(`user-${i}-wagered`).textContent = `${config.coinSymbol} ${wageredText}`;
-            document.getElementById(`user-${i}-name`).textContent = truncateText(user.username);
-            const prizeAmount = getPrizeForRank(rank, config.rewardStructure, config.coinSymbol);
-            const priceElement = document.getElementById(`user-${i}-price`);
-            priceElement.textContent = prizeAmount;
-            const prizeCoinIcon = document.getElementById(`prize-coin-icon-${i}`);
-            if (prizeAmount !== 'N/A' && config.coinIcon) {
-              prizeCoinIcon.style.display = 'inline';
-            } else {
-              prizeCoinIcon.style.display = 'none';
+        }
+        function updateSiteContent() {
+            const site = getCurrentSite();
+            const config = siteConfig[site];
+            const codeBtn = document.getElementById('site-code');
+            codeBtn.textContent = `CODE: ${config.code}`;
+            codeBtn.onclick = () => window.open(config.url, '_blank');
+            const rulesBtn = document.getElementById('rules-btn');
+            if (site === 'rainbet') rulesBtn.style.display = 'inline-block';
+            else rulesBtn.style.display = 'none';
+            for (let i = 1; i <= 3; i++) {
+                const coinIcon = document.getElementById(`coin-icon-${i}`);
+                if (coinIcon) {
+                    if (config.coinIcon) {
+                        coinIcon.src = config.coinIcon; coinIcon.style.width = '20px'; coinIcon.style.height = '20px'; coinIcon.style.marginRight = '5px'; coinIcon.style.display = 'inline';
+                    } else { coinIcon.style.display = 'none'; }
+                }
+                const prizeCoinIcon = document.getElementById(`prize-coin-icon-${i}`);
+                if (prizeCoinIcon) {
+                    if (config.coinIcon) {
+                        prizeCoinIcon.src = config.coinIcon; prizeCoinIcon.style.width = '20px'; prizeCoinIcon.style.height = '20px'; prizeCoinIcon.style.marginRight = '5px'; prizeCoinIcon.style.display = 'inline';
+                    } else { prizeCoinIcon.style.display = 'none'; }
+                }
             }
-          } else {
-            document.getElementById(`user-${i}-img`).src = 'https://i.postimg.cc/sXFPrDBk/rainbetlogo.png';
-            document.getElementById(`user-${i}-name`).textContent = '...';
-            document.getElementById(`user-${i}-wagered`).textContent = '0.00';
-            document.getElementById(`user-${i}-price`).textContent = 'N/A';
-            const prizeCoinIcon = document.getElementById(`prize-coin-icon-${i}`);
-            if (prizeCoinIcon) prizeCoinIcon.style.display = 'none';
-          }
+        }
+        const truncateText = (text, maxLength = 12) => {
+            return text?.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+        };
+        function getPrizeForRank(rank, rewardStructure, coinSymbol) {
+            const prize = rewardStructure[rank];
+            if (prize !== undefined) {
+                return `${coinSymbol} ${prize.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+            }
+            return 'N/A';
+        }
+        let showingPrevLeaderboard = false;
+        let timerInterval = null;
+        
+        function formatDateShort(date) {
+            // "1st Sep 2025" etc.
+            const day = date.getDate();
+            let suffix = 'th';
+            if (day === 1 || day === 21 || day === 31) suffix = 'st';
+            else if (day === 2 || day === 22) suffix = 'nd';
+            else if (day === 3 || day === 23) suffix = 'rd';
+            const month = date.toLocaleString('en-US', { month: 'short' });
+            const year = date.getFullYear();
+            return `${day}${suffix} ${month} ${year}`;
+        }
+        // Date range for current leaderboard: first of this month ~ last of this month.
+        function getCurrentLeaderboardRange() {
+            const now = new Date();
+            return {
+                start: new Date(now.getFullYear(), now.getMonth(), 1),
+                end: new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59)
+            };
+        }
+        // Fill and display the date-range and countdown (for current) or just the range (for previous)
+        function showDateAndCountdown(usePrev, prevRange = null) {
+            const container = document.getElementById('date-range-container');
+            container.innerHTML = '';
+            if (usePrev) {
+                // Show previous leaderboard date range only, no countdown
+                const from = prevRange?.from ? new Date(prevRange.from) : null;
+                const to = prevRange?.to ? new Date(prevRange.to) : null;
+                let line = '';
+                if (from && to) line = `<div class="date-range">${formatDateShort(from)} - ${formatDateShort(to)}</div><div id="last-date-note">This period is completed.</div>`;
+                else line = `<div class="date-range">Leaderboard period completed</div>`;
+                container.innerHTML = line;
+                if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+            } else {
+                // Show this month's 1st to last day; show countdown.
+                const {start, end} = getCurrentLeaderboardRange();
+                container.innerHTML = `<div class="date-range">${formatDateShort(start)} - ${formatDateShort(end)}</div>
+                <div style="margin-bottom:6px; color:#bbb">Ends in:</div>
+                <div class="count-down">
+                    <div class="counter">
+                        <span class="days">00</span>
+                        <div class="label">Days</div>
+                    </div>
+                    <div class="counter">
+                        <span class="hours">00</span>
+                        <div class="label">Hours</div>
+                    </div>
+                    <div class="counter">
+                        <span class="minutes">00</span>
+                        <div class="label">Minutes</div>
+                    </div>
+                    <div class="counter">
+                        <span class="seconds">00</span>
+                        <div class="label">Seconds</div>
+                    </div>
+                </div>`;
+                if (timerInterval) clearInterval(timerInterval);
+                // Countdown updater
+                function updateCountdown() {
+                    const now = new Date().getTime();
+                    const distance = end.getTime() - now;
+                    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    if (distance < 0) { days = hours = minutes = seconds = 0; }
+                    container.querySelector('.days').textContent = String(days).padStart(2, '0');
+                    container.querySelector('.hours').textContent = String(hours).padStart(2, '0');
+                    container.querySelector('.minutes').textContent = String(minutes).padStart(2, '0');
+                    container.querySelector('.seconds').textContent = String(seconds).padStart(2, '0');
+                }
+                updateCountdown();
+                timerInterval = setInterval(updateCountdown, 1000);
+            }
         }
 
-        const table = document.getElementById('customers');
-        while (table.rows.length > 1) {
-          table.deleteRow(1);
+        // Auto-extract leaderboard period from previous API if available, else fallback to last month
+        async function getPrevLeaderboardRange() {
+            // Try fetching meta info if possible (else fallback to last month).
+            try {
+                const resp = await fetch("https://colebeardata.onrender.com/leaderboard/prev");
+                const data = await resp.json();
+                if (data && Array.isArray(data) && data.length > 0) {
+                    // Try to detect min/max date if weightedWager objects have date properties
+                    const allDates = (data.map(e => e.date || e.createdAt || e.updatedAt).filter(Boolean));
+                    if (allDates.length) {
+                        const sorted = allDates.map(d => new Date(d)).sort((a, b) => a-b);
+                        return {from: sorted[0], to: sorted[sorted.length-1]};
+                    }
+                }
+            } catch {}
+            // Fallback: previous month
+            const now = new Date();
+            const prev = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+            const last = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59);
+            return {from:prev, to:last};
         }
-        data.slice(3).forEach((user, index) => {
-          const rank = index + 4;
-          const row = table.insertRow();
-          row.innerHTML = `
-              <th>${rank}.</th>
-              <td>
-                <div class="d-flex align-center">
-                  <img src="${user.img || 'https://i.postimg.cc/sXFPrDBk/rainbetlogo.png'}" alt="" class="img-fluid" />
-                  <p>${truncateText(user.username)}</p>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-center">
-                  ${
-                    config.coinIcon
-                      ? `<img src="${config.coinIcon}" alt="" style="width: 20px; height:20px; margin-right:5px;" />`
-                      : ''
-                  }
-                  <p>${config.coinSymbol} ${user.weightedWager.toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}</p>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-center">
-                  <p>${getPrizeForRank(rank, config.rewardStructure, config.coinSymbol)}</p>
-                </div>
-              </td>
-            `;
+
+        async function updateLeaderboard(usePrev = false) {
+            try {
+                const site = getCurrentSite();
+                const url = usePrev
+                    ? 'https://colebeardata.onrender.com/leaderboard/prev'
+                    : 'https://Sutchyyyslotsdata.onrender.com/leaderboard/top14';
+                let data = [];
+                let prevRange = null;
+                if (usePrev) {
+                    // also get range
+                    prevRange = await getPrevLeaderboardRange();
+                }
+                const response = await fetch(url);
+                data = await response.json();
+                const config = siteConfig[site];
+                data.sort((a, b) => b.weightedWager - a.weightedWager);
+
+                for (let i = 1; i <= 3; i++) {
+                    const user = data[i - 1];
+                    const rank = i;
+                    if (user) {
+                        document.getElementById(`user-${i}-img`).src = user.img || 'https://i.postimg.cc/sXFPrDBk/rainbetlogo.png';
+                        const wageredText = user.weightedWager.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        document.getElementById(`user-${i}-wagered`).textContent = `${config.coinSymbol} ${wageredText}`;
+                        document.getElementById(`user-${i}-name`).textContent = truncateText(user.username);
+                        const priceElement = document.getElementById(`user-${i}-price`);
+                        const prizeAmount = getPrizeForRank(rank, config.rewardStructure, config.coinSymbol);
+                        priceElement.textContent = prizeAmount;
+                        const prizeCoinIcon = document.getElementById(`prize-coin-icon-${i}`);
+                        if (prizeAmount !== 'N/A' && config.coinIcon) {
+                            prizeCoinIcon.style.display = 'inline';
+                        } else {
+                            prizeCoinIcon.style.display = 'none';
+                        }
+                    } else {
+                        document.getElementById(`user-${i}-img`).src = 'https://i.postimg.cc/sXFPrDBk/rainbetlogo.png';
+                        document.getElementById(`user-${i}-name`).textContent = '...';
+                        document.getElementById(`user-${i}-wagered`).textContent = '0.00';
+                        document.getElementById(`user-${i}-price`).textContent = 'N/A';
+                        const prizeCoinIcon = document.getElementById(`prize-coin-icon-${i}`);
+                        if (prizeCoinIcon) prizeCoinIcon.style.display = 'none';
+                    }
+                }
+                // Table
+                const table = document.getElementById('customers');
+                while (table.rows.length > 1) { table.deleteRow(1); }
+                data.slice(3).forEach((user, index) => {
+                    const rank = index + 4;
+                    const row = table.insertRow();
+                    row.innerHTML = `
+                        <th>${rank}.</th>
+                        <td>
+                            <div class="d-flex align-center">
+                                <img src="${user.img || 'https://i.postimg.cc/sXFPrDBk/rainbetlogo.png'}" alt="" class="img-fluid">
+                                <p>${truncateText(user.username)}</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-center">
+                                ${config.coinIcon ? `<img src="${config.coinIcon}" alt="" style="width: 20px; height: 20px; margin-right: 5px;">` : ''}
+                                <p>${config.coinSymbol} ${user.weightedWager.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-center">
+                                <p>${getPrizeForRank(rank, config.rewardStructure, config.coinSymbol)}</p>
+                            </div>
+                        </td>
+                    `;
+                });
+                const headingElement = document.getElementById('leaderboard-heading');
+                const leaderboardType = usePrev ? 'PREVIOUS' : 'CURRENT';
+                const siteName = config.name.toUpperCase();
+                headingElement.innerHTML = `${siteName} ${leaderboardType} WAGER LEADERBOARD`;
+
+                showDateAndCountdown(usePrev, prevRange);
+            } catch (error) {
+                console.error('Error updating leaderboard:', error);
+                document.getElementById('leaderboard-heading').textContent = 'Error loading leaderboard data.';
+            }
+        }
+
+        async function updatePrevToggleLeaderboard() {
+            const btn = document.getElementById('prev-leaderboard-btn');
+            if (showingPrevLeaderboard) {
+                btn.innerHTML = `<i class="fa-solid fa-trophy"></i> CURRENT LEADERBOARD`;
+                await updateLeaderboard(true);
+            } else {
+                btn.innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> PREVIOUS LEADERBOARD`;
+                await updateLeaderboard(false);
+            }
+        }
+
+        function openRulesModal() {
+            document.getElementById('rulesModal').classList.add('show');
+        }
+        function closeRulesModal() {
+            document.getElementById('rulesModal').classList.remove('show');
+        }
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            updateActiveButton(); updateSiteContent(); updateLeaderboard();
+            const rulesBtn = document.getElementById('rules-btn');
+            if (rulesBtn) { rulesBtn.addEventListener('click', openRulesModal); }
+            const prevBtn = document.getElementById('prev-leaderboard-btn');
+            if (prevBtn) {
+                prevBtn.addEventListener('click', function () {
+                    showingPrevLeaderboard = !showingPrevLeaderboard;
+                    updatePrevToggleLeaderboard();
+                });
+            }
         });
-
-        const headingElement = document.getElementById('leaderboard-heading');
-        const leaderboardType = usePrev ? 'PREVIOUS' : 'CURRENT';
-        headingElement.innerHTML = `${config.name.toUpperCase()} ${leaderboardType} WAGER LEADERBOARD`;
-
-        showDateAndCountdown(usePrev);
-      } catch (error) {
-        console.error('Error updating leaderboard:', error);
-        const headingElement = document.getElementById('leaderboard-heading');
-        headingElement.textContent = 'Error loading leaderboard data.';
-      }
-    }
-
-    async function updatePrevToggleLeaderboard() {
-      const btn = document.getElementById('prev-leaderboard-btn');
-      if (showingPrevLeaderboard) {
-        btn.innerHTML = `<i class="fa-solid fa-trophy"></i> CURRENT LEADERBOARD`;
-        await updateLeaderboard(true);
-      } else {
-        btn.innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> PREVIOUS LEADERBOARD`;
-        await updateLeaderboard(false);
-      }
-    }
-
-    function openRulesModal() {
-      document.getElementById('rulesModal').classList.add('show');
-    }
-    function closeRulesModal() {
-      document.getElementById('rulesModal').classList.remove('show');
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      updateActiveButton();
-      updateSiteContent();
-      updateLeaderboard();
-      const rulesBtn = document.getElementById('rules-btn');
-      if (rulesBtn) {
-        rulesBtn.addEventListener('click', openRulesModal);
-      }
-      const prevBtn = document.getElementById('prev-leaderboard-btn');
-      if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-          showingPrevLeaderboard = !showingPrevLeaderboard;
-          updatePrevToggleLeaderboard();
+        window.addEventListener('popstate', () => {
+            updateActiveButton(); updateSiteContent(); updateLeaderboard(showingPrevLeaderboard);
         });
-      }
-    });
-
-    window.addEventListener('popstate', () => {
-      updateActiveButton();
-      updateSiteContent();
-      updateLeaderboard(showingPrevLeaderboard);
-    });
-
-    function updateActiveButton() {
-      const site = getCurrentSite();
-      document.querySelectorAll('.gf-btn').forEach((btn) => {
-        btn.classList.remove('gf-btn-active');
-        const onclickAttr = btn.getAttribute('onclick');
-        const match = onclickAttr && onclickAttr.match(/\/leaderboard\/(\w+)/);
-        if (match && match[1] === site) {
-          btn.classList.add('gf-btn-active');
-        }
-      });
-    }
-
-    function updateSiteContent() {
-      const site = getCurrentSite();
-      const config = siteConfig[site];
-      const codeBtn = document.getElementById('site-code');
-      codeBtn.textContent = `CODE: ${config.code}`;
-      codeBtn.onclick = () => window.open(config.url, '_blank');
-      const rulesBtn = document.getElementById('rules-btn');
-      if (site === 'rainbet') {
-        rulesBtn.style.display = 'inline-block';
-      } else {
-        rulesBtn.style.display = 'none';
-      }
-      for (let i = 1; i <= 3; i++) {
-        const coinIcon = document.getElementById(`coin-icon-${i}`);
-        if (coinIcon) {
-          if (config.coinIcon) {
-            coinIcon.src = config.coinIcon;
-            coinIcon.style.width = '20px';
-            coinIcon.style.height = '20px';
-            coinIcon.style.marginRight = '5px';
-            coinIcon.style.display = 'inline';
-          } else {
-            coinIcon.style.display = 'none';
-          }
-        }
-        const prizeCoinIcon = document.getElementById(`prize-coin-icon-${i}`);
-        if (prizeCoinIcon) {
-          if (config.coinIcon) {
-            prizeCoinIcon.src = config.coinIcon;
-            prizeCoinIcon.style.width = '20px';
-            prizeCoinIcon.style.height = '20px';
-            prizeCoinIcon.style.marginRight = '5px';
-            prizeCoinIcon.style.display = 'inline';
-          } else {
-            prizeCoinIcon.style.display = 'none';
-          }
-        }
-      }
-    }
-  </script>
+    </script>
 </body>
 </html>
