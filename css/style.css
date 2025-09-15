@@ -11,50 +11,77 @@
 }
 
 :root {
-  /* Dark Sky & Stormy Cloud Color Palette */
+  /* Ultra-Dark Cinematic Palette */
   --heading-family: "Chakra Petch", sans-serif;
 
   /* Background Colors */
-  --color-bg-primary: #1a2336; /* Deep midnight blue */
-  --color-bg-secondary: #2c3e50; /* Dark slate gray */
-  --color-bg-tertiary: #34495e; /* Muted steel blue */
-  
+  --color-bg-primary: #0a0e1a; /* Deep, inky blue-black */
+  --color-bg-secondary: #141b2c; /* Very dark slate blue */
+  --color-bg-tertiary: #1f283d; /* Muted dark blue */
+
   /* Accent Colors */
-  --color-accent: #3b82f6; /* A bolt of electric blue */
-  --color-accent-hover: #60a5fa; /* Lighter blue for effect */
-  --color-accent-active: #2563eb; /* Deeper blue for active state */
-  
+  --color-accent: #5e72e4; /* A soft, magical blue-purple */
+  --color-accent-hover: #7b8de6; /* A slightly lighter hue for hover */
+  --color-accent-active: #4a5dc1; /* A deeper tone for an active state */
+
   /* Text Colors */
-  --color-text-primary: #ecf0f1; /* Off-white, like distant clouds */
-  --color-text-secondary: #bdc3c7; /* Lighter gray for secondary text */
-  --color-text-tertiary: #95a5a6; /* Soft gray for subtle details */
-  --color-text-disabled: #4e5c6a; /* Dark gray for disabled elements */
-  
+  --color-text-primary: #e0e6ff; /* A faint, cool white for main text */
+  --color-text-secondary: #aab5d9; /* A faded blue-gray for secondary text */
+  --color-text-tertiary: #6b7a99; /* A desaturated gray for subtle details */
+  --color-text-disabled: #3d4a66; /* A very dark, muted gray */
+
   /* Border Colors */
-  --color-border-default: #4e5c6a; /* Dark gray border */
-  --color-border-hover: #6c7a89; /* Lighter border on hover */
-  --color-border-focus: #3b82f6; /* Blue focus border */
-  
+  --color-border-default: #2a344d; /* A dark, cool border */
+  --color-border-hover: #3e4d66; /* A more visible hover border */
+  --color-border-focus: #5e72e4; /* Soft blue-purple focus border */
+
   /* Surface Colors */
-  --color-surface-card: #2c3e50; /* Matches secondary background */
-  --color-surface-overlay: rgba(26, 35, 54, 0.9); /* Semi-transparent midnight blue */
-  --color-surface-modal: #1e2a3b; /* Slightly darker than primary background */
-  
+  --color-surface-card: #141b2c; /* Matches secondary background */
+  --color-surface-overlay: rgba(10, 14, 26, 0.85); /* Semi-transparent inky blue */
+  --color-surface-modal: #0d121f; /* Slightly darker than primary background */
+
   /* State Colors */
-  --color-state-success: #2ecc71; /* A subtle, natural green */
-  --color-state-error: #e74c3c; /* A warning red */
-  --color-state-warning: #f39c12; /* A lightning-like yellow */
-  --color-state-info: #3b82f6; /* Electric blue info color */
-  
+  --color-state-success: #2ecc71;
+  --color-state-error: #e74c3c;
+  --color-state-warning: #f39c12;
+  --color-state-info: #5e72e4;
+
   /* Legacy Variables (updated to new colors) */
-  --bgColorBack: #1a2336;
-  --white-color: #ecf0f1;
-  --black-color: #1a2336;
-  --text-color: #ecf0f1;
-  --red-color-bg-1: #3b82f6;
-  --red-color-bg-2: #2563eb;
-  --red-color-bg-3: #1a2336;
-  --red-color-bg-4: #3b82f6;
+  --bgColorBack: #0a0e1a;
+  --white-color: #e0e6ff;
+  --black-color: #0a0e1a;
+  --text-color: #e0e6ff;
+  --red-color-bg-1: #5e72e4;
+  --red-color-bg-2: #4a5dc1;
+  --red-color-bg-3: #0a0e1a;
+  --red-color-bg-4: #5e72e4;
+}
+body {
+  background-color: var(--color-bg-primary); /* Sets a fallback background color */
+  background-image: radial-gradient(
+      at 27% 99%,
+      var(--color-bg-tertiary) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 100% 10%, var(--color-bg-secondary) 0px, transparent 50%),
+    radial-gradient(at 1% 29%, var(--color-bg-tertiary) 0px, transparent 50%),
+    radial-gradient(at 73% 38%, var(--color-bg-secondary) 0px, transparent 50%),
+    radial-gradient(at 3% 66%, var(--color-bg-tertiary) 0px, transparent 50%),
+    radial-gradient(at 63% 61%, var(--color-bg-secondary) 0px, transparent 50%);
+  background-size: 100% 100%; /* Cover the entire area */
+  background-attachment: fixed; /* Keeps the gradients from scrolling with content */
+  animation: bg-move 20s linear infinite; /* Applies the animation */
+  overflow-x: hidden; /* Prevents horizontal scrollbar from animation */
+}
+
+@keyframes bg-move {
+  0% {
+    background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+  100% {
+    background-position: 200% 200%, -200% 200%, 200% -200%, -200% -200%,
+      -200% 200%, 200% -200%;
+  }
 }
 .d-flex {
   display: flex;
