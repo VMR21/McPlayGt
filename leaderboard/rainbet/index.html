@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +11,7 @@
     <meta name="description" content="McPlayGT - Exclusive wager races!">
     <meta name="author" content="McPlayGT">
     <style>
-        /* ... Your styles remain unchanged ... */
+        /* ... Your existing styles remain unchanged ... */
         /* Rules Button */
         .rules-btn {
             margin-left: 15px;
@@ -24,12 +23,10 @@
             border-radius: 5px;
             font-weight: 600;
         }
-
         .rules-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 213, 0, 0.3);
         }
-
         /* Modal Styles */
         #rulesModal {
             position: fixed;
@@ -41,13 +38,11 @@
             background-color: rgba(0, 0, 0, 0.8);
             display: none;
         }
-
         #rulesModal.show {
             display: flex !important;
             align-items: center !important;
             justify-content: center !important;
         }
-
         #rulesModal .modal-content {
             background: #1a1a1a;
             border-radius: 12px;
@@ -60,119 +55,91 @@
             margin: 20px;
             animation: modalSlideIn 0.3s ease;
         }
-
         @keyframes modalSlideIn {
             from {
                 transform: translateY(-30px);
                 opacity: 0;
             }
-
             to {
                 transform: translateY(0);
                 opacity: 1;
             }
         }
 
-        /* NEW: Countdown styles */
-        .countdown-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /* Countdown Styles */
+        #countdown-container {
+            text-align: center;
             margin-top: 20px;
             margin-bottom: 20px;
-            flex-wrap: wrap;
         }
-
-        .countdown-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 10px 15px;
-            margin: 0 5px;
-            min-width: 60px;
-            text-align: center;
-        }
-
-        .countdown-number {
-            font-size: 2rem;
-            font-weight: bold;
+        #countdown-container h4 {
+            font-size: 1.25rem;
             color: #ffd500;
-            line-height: 1;
+            margin-bottom: 10px;
         }
-
-        .countdown-label {
-            font-size: 0.8rem;
-            color: #a0a0a0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 5px;
+        #countdown {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         
-        /* NEW: Footer styles from provided CSS */
+        /* Footer Styles */
         .footer-compact {
+            background-color: #0d0d0d;
+            border-top: 1px solid #1a1a1a;
             padding: 20px 0;
+            color: #888;
+            font-size: 0.9em;
+            text-align: center;
         }
-
-        .footer-main {
+        .footer-compact .footer-main {
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
+            gap: 15px;
         }
-
-        .social-icons {
-            margin-bottom: 15px;
-        }
-
-        .social-icons a {
-            color: #fff;
-            margin: 0 8px;
-            font-size: 24px;
-            transition: color 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            color: #ffd500;
-        }
-
-        .footer-links {
+        .footer-compact .social-icons {
             display: flex;
-            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .footer-compact .social-icons a {
+            color: #888;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        .footer-compact .social-icons a:hover {
+            color: #fff;
+        }
+        .footer-compact .footer-links {
+            display: flex;
             justify-content: center;
             gap: 20px;
-            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .footer-compact .footer-links a {
+            color: #888;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        .footer-compact .footer-links a:hover {
+            color: #fff;
+        }
+        .footer-compact .footer-bottom {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #1a1a1a;
+        }
+        .footer-compact .disclaimer,
+        .footer-compact .copyright {
+            margin: 5px 0;
         }
 
-        .footer-links a {
-            color: #e0e0e0;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #ffd500;
-        }
-
-        .footer-bottom {
-            text-align: center;
-        }
-
-        .disclaimer,
-        .copyright {
-            font-size: 12px;
-            color: #a0a0a0;
-            line-height: 1.5;
-            margin: 0;
-        }
         /* ... rest of your modal/rules or responsive styles ... */
     </style>
 </head>
-
 <body>
     <!-- Rules Modal -->
     <div id="rulesModal">
@@ -230,25 +197,6 @@
                 <div class="col-12">
                     <div class="boxContent fade-in">
                         <h4 class="center" id="leaderboard-heading">My Leaderboards</h4>
-                        <!-- NEW: Countdown container -->
-                        <div class="countdown-container" id="monthly-countdown-container">
-                            <div class="countdown-box">
-                                <span class="countdown-number" id="countdown-days">00</span>
-                                <span class="countdown-label">Days</span>
-                            </div>
-                            <div class="countdown-box">
-                                <span class="countdown-number" id="countdown-hours">00</span>
-                                <span class="countdown-label">Hours</span>
-                            </div>
-                            <div class="countdown-box">
-                                <span class="countdown-number" id="countdown-minutes">00</span>
-                                <span class="countdown-label">Minutes</span>
-                            </div>
-                            <div class="countdown-box">
-                                <span class="countdown-number" id="countdown-seconds">00</span>
-                                <span class="countdown-label">Seconds</span>
-                            </div>
-                        </div>
                     </div>
                     <div class="swiperContent">
                         <div class="paymentBtn d-flex align-center justify-center scale-in" id="gf-BtnContainer">
@@ -264,8 +212,7 @@
                                             CODE: LOADING...
                                         </p>
                                         <!-- PREVIOUS/CURRENT BUTTON INSERTED HERE -->
-                                        <button class="btnPara rules-btn" id="prev-leaderboard-btn"
-                                            style="margin-left: 12px;">
+                                        <button class="btnPara rules-btn" id="prev-leaderboard-btn" style="margin-left: 12px;">
                                             <i class="fa-solid fa-clock-rotate-left"></i> PREVIOUS LEADERBOARD
                                         </button>
                                         <button class="btnPara rules-btn" id="rules-btn" style="display: none;">
@@ -273,12 +220,15 @@
                                         </button>
                                     </div>
                                 </div>
+                                <div id="countdown-container">
+                                    <h4>MONTHLY LEADERBOARD ENDS IN UTC</h4>
+                                    <div id="countdown"></div>
+                                </div>
                                 <div class="row gridRow d-flex align-center justify-center">
                                     <!-- Boxes 1 to 3 (Top 3) -->
                                     <div class="box-1 box stagger-item">
                                         <div class="imgNumberBox">
-                                            <img src="https://i.postimg.cc/sXFPrDBk/rainbetlogo.png" alt=""
-                                                class="img-fluid" id="user-2-img">
+                                            <img src="https://i.postimg.cc/sXFPrDBk/rainbetlogo.png" alt="" class="img-fluid" id="user-2-img">
                                             <div class="boxNumber">
                                                 <p>2</p>
                                                 <i class="fa-solid fa-diamond"></i>
@@ -300,8 +250,7 @@
                                     </div>
                                     <div class="box-2 box stagger-item">
                                         <div class="imgNumberBox">
-                                            <img src="https://i.postimg.cc/sXFPrDBk/rainbetlogo.png" alt=""
-                                                class="img-fluid" id="user-1-img">
+                                            <img src="https://i.postimg.cc/sXFPrDBk/rainbetlogo.png" alt="" class="img-fluid" id="user-1-img">
                                             <div class="boxNumber">
                                                 <p>1</p>
                                                 <i class="fa-solid fa-diamond"></i>
@@ -323,8 +272,7 @@
                                     </div>
                                     <div class="box-3 box stagger-item">
                                         <div class="imgNumberBox">
-                                            <img src="https://i.postimg.cc/sXFPrDBk/rainbetlogo.png" alt=""
-                                                class="img-fluid" id="user-3-img">
+                                            <img src="https://i.postimg.cc/sXFPrDBk/rainbetlogo.png" alt="" class="img-fluid" id="user-3-img">
                                             <div class="boxNumber">
                                                 <p>3</p>
                                                 <i class="fa-solid fa-diamond"></i>
@@ -345,7 +293,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Countdown section has been REMOVED -->
+                                <!-- Countdown section has been REMOVED from this line -->
                                 <div class="row leaderBoardTable fade-in">
                                     <div class="col-12" style="overflow-x: auto;">
                                         <table id="customers">
@@ -440,7 +388,6 @@
             const match = path.match(/\/leaderboard\/(\w+)/);
             return match ? match[1] : 'rainbet';
         }
-
         function updateActiveButton() {
             const site = getCurrentSite();
             document.querySelectorAll('.gf-btn').forEach(btn => {
@@ -452,7 +399,6 @@
                 }
             });
         }
-
         function updateSiteContent() {
             const site = getCurrentSite();
             const config = siteConfig[site];
@@ -493,18 +439,13 @@
                 }
             }
         }
-
         const truncateText = (text, maxLength = 12) => {
             return text?.length > maxLength ? text.substring(0, maxLength) + '...' : text;
         };
-
         function getPrizeForRank(rank, rewardStructure, coinSymbol) {
             const prize = rewardStructure[rank];
             if (prize !== undefined) {
-                return `${coinSymbol} ${prize.toLocaleString('en-US', {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0
-                })}`;
+                return `${coinSymbol} ${prize.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
             }
             return 'N/A';
         }
@@ -516,9 +457,9 @@
         async function updateLeaderboard(usePrev = false) {
             try {
                 const site = getCurrentSite();
-                const url = usePrev ?
-                    'https://colebeardata.onrender.com/leaderboard/prev' :
-                    'https://Sutchyyyslotsdata.onrender.com/leaderboard/top14';
+                const url = usePrev
+                    ? 'https://colebeardata.onrender.com/leaderboard/prev'
+                    : 'https://Sutchyyyslotsdata.onrender.com/leaderboard/top14';
                 const response = await fetch(url);
                 const data = await response.json();
                 const config = siteConfig[site];
@@ -529,10 +470,7 @@
                     const rank = i;
                     if (user) {
                         document.getElementById(`user-${i}-img`).src = user.img || 'https://i.postimg.cc/sXFPrDBk/rainbetlogo.png';
-                        const wageredText = user.weightedWager.toLocaleString('en-US', {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                        });
+                        const wageredText = user.weightedWager.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                         document.getElementById(`user-${i}-wagered`).textContent = `${config.coinSymbol} ${wageredText}`;
                         document.getElementById(`user-${i}-name`).textContent = truncateText(user.username);
                         const priceElement = document.getElementById(`user-${i}-price`);
@@ -563,28 +501,25 @@
                     const rank = index + 4;
                     const row = table.insertRow();
                     row.innerHTML = `
-                         <th>${rank}.</th>
-                         <td>
-                             <div class="d-flex align-center">
-                                 <img src="${user.img || 'https://i.postimg.cc/sXFPrDBk/rainbetlogo.png'}" alt="" class="img-fluid">
-                                 <p>${truncateText(user.username)}</p>
-                             </div>
-                         </td>
-                         <td>
-                             <div class="d-flex align-center">
-                                 ${config.coinIcon ? `<img src="${config.coinIcon}" alt="" style="width: 20px; height: 20px; margin-right: 5px;">` : ''}
-                                 <p>${config.coinSymbol} ${user.weightedWager.toLocaleString('en-US', {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    })}</p>
-                             </div>
-                         </td>
-                         <td>
-                             <div class="d-flex align-center">
-                                 <p>${getPrizeForRank(rank, config.rewardStructure, config.coinSymbol)}</p>
-                             </div>
-                         </td>
-                     `;
+                        <th>${rank}.</th>
+                        <td>
+                            <div class="d-flex align-center">
+                                <img src="${user.img || 'https://i.postimg.cc/sXFPrDBk/rainbetlogo.png'}" alt="" class="img-fluid">
+                                <p>${truncateText(user.username)}</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-center">
+                                ${config.coinIcon ? `<img src="${config.coinIcon}" alt="" style="width: 20px; height: 20px; margin-right: 5px;">` : ''}
+                                <p>${config.coinSymbol} ${user.weightedWager.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-center">
+                                <p>${getPrizeForRank(rank, config.rewardStructure, config.coinSymbol)}</p>
+                            </div>
+                        </td>
+                    `;
                 });
                 // Update header
                 const headingElement = document.getElementById('leaderboard-heading');
@@ -595,6 +530,28 @@
                 console.error('Error updating leaderboard:', error);
                 document.getElementById('leaderboard-heading').textContent = 'Error loading leaderboard data.';
             }
+        }
+
+        // Countdown logic
+        function updateCountdown() {
+            const now = new Date();
+            const year = now.getUTCFullYear();
+            const month = now.getUTCMonth();
+            const nextMonth = new Date(Date.UTC(year, month + 1, 1));
+            const diff = nextMonth - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown').textContent = 'Leaderboard has ended!';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').textContent = 
+                `${days}D ${hours}H ${minutes}M ${seconds}S`;
         }
 
         // Button and toggle logic
@@ -613,42 +570,18 @@
         function openRulesModal() {
             document.getElementById('rulesModal').classList.add('show');
         }
-
         function closeRulesModal() {
             document.getElementById('rulesModal').classList.remove('show');
         }
 
-        // Countdown Logic
-        function updateMonthlyCountdown() {
-            const now = new Date();
-            const utcNow = new Date(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds());
-            
-            const lastDayOfMonth = new Date(utcNow.getUTCFullYear(), utcNow.getUTCMonth() + 1, 0, 23, 59, 59, 999);
-
-            const timeRemaining = lastDayOfMonth.getTime() - utcNow.getTime();
-
-            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-
-            document.getElementById('countdown-days').textContent = days < 10 ? `0${days}` : days;
-            document.getElementById('countdown-hours').textContent = hours < 10 ? `0${hours}` : hours;
-            document.getElementById('countdown-minutes').textContent = minutes < 10 ? `0${minutes}` : minutes;
-            document.getElementById('countdown-seconds').textContent = seconds < 10 ? `0${seconds}` : seconds;
-
-            if (timeRemaining < 0) {
-                clearInterval(countdownInterval);
-                document.getElementById('monthly-countdown-container').innerHTML = "<span>Countdown expired! A new leaderboard has begun.</span>";
-                updateLeaderboard();
-            }
-        }
-        
         // Init
         document.addEventListener('DOMContentLoaded', () => {
             updateActiveButton();
             updateSiteContent();
             updateLeaderboard();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+
             const rulesBtn = document.getElementById('rules-btn');
             if (rulesBtn) {
                 rulesBtn.addEventListener('click', openRulesModal);
@@ -660,10 +593,7 @@
                     updatePrevToggleLeaderboard();
                 });
             }
-            updateMonthlyCountdown();
-            setInterval(updateMonthlyCountdown, 1000);
         });
-
         window.addEventListener('popstate', () => {
             updateActiveButton();
             updateSiteContent();
@@ -671,5 +601,4 @@
         });
     </script>
 </body>
-
 </html>
