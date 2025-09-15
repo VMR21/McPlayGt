@@ -1583,7 +1583,7 @@ header span i {
   font-size: 16px;
   font-weight: 600;
   line-height: 19.2px;
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   background-color: rgba(124, 58, 237, 0.1);
   position: relative;
   z-index: 9;
