@@ -85,7 +85,7 @@ function updateLiveButton() {
     if (!textSpan) return;
 
     // Always make it clickable to go to Kick
-    liveButton.onclick = () => window.open('https://kick.com/sutchyyyslots', '_blank');
+    liveButton.onclick = () => window.open('https://kick.com/mcplaygt', '_blank');
 
     if (isLive) {
         liveButton.classList.remove('offline');
