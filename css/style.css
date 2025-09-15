@@ -56,24 +56,6 @@
   --red-color-bg-3: #0a0e1a;
   --red-color-bg-4: #5e72e4;
 }
-body {
-  background-color: var(--color-bg-primary); /* Sets a fallback background color */
-  background-image: radial-gradient(
-      at 27% 99%,
-      var(--color-bg-tertiary) 0px,
-      transparent 50%
-    ),
-    radial-gradient(at 100% 10%, var(--color-bg-secondary) 0px, transparent 50%),
-    radial-gradient(at 1% 29%, var(--color-bg-tertiary) 0px, transparent 50%),
-    radial-gradient(at 73% 38%, var(--color-bg-secondary) 0px, transparent 50%),
-    radial-gradient(at 3% 66%, var(--color-bg-tertiary) 0px, transparent 50%),
-    radial-gradient(at 63% 61%, var(--color-bg-secondary) 0px, transparent 50%);
-  background-size: 100% 100%; /* Cover the entire area */
-  background-attachment: fixed; /* Keeps the gradients from scrolling with content */
-  animation: bg-move 20s linear infinite; /* Applies the animation */
-  overflow-x: hidden; /* Prevents horizontal scrollbar from animation */
-}
-
 @keyframes bg-move {
   0% {
     background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
