@@ -72,10 +72,10 @@
         opacity: 1;
       }
     }
-    /* Countdown container */
+    /* Countdown Styles */
     .countdown-container {
       text-align: center;
-      margin-bottom: 15px;
+      margin: 15px 0;
       color: #ffd500;
       font-weight: 600;
       font-size: 16px;
@@ -101,12 +101,6 @@
       margin-top: 2px;
       text-align: center;
     }
-    #date-message {
-      font-size: 14px;
-      color: #999;
-      margin-bottom: 8px;
-    }
-    /* Keep other styles untouched */
   </style>
 </head>
 <body>
@@ -125,46 +119,35 @@
       </div>
     </div>
   </div>
+
   <div class="bg-gradient"></div>
   <canvas id="particleCanvas"></canvas>
+
+  <!-- Header -->
   <header class="header-v2">
     <div class="header-wrapper">
       <div class="logo-area">
         <a href="/">
-          <img
-            src="https://i.postimg.cc/WhjWXnFD/image.png"
-            alt="McPlayGT"
-            class="header-logo"
-          />
+          <img src="https://i.postimg.cc/WhjWXnFD/image.png" alt="McPlayGT" class="header-logo" />
         </a>
         <div class="live-status">
           <button id="liveButton" class="live-button offline">
-            <img
-              src="https://i.postimg.cc/vT6Yy35H/image.png"
-              alt="Kick"
-              class="kick-icon"
-            />
+            <img src="https://i.postimg.cc/vT6Yy35H/image.png" alt="Kick" class="kick-icon" />
             <span>OFFLINE</span>
           </button>
         </div>
       </div>
       <div class="nav-area desktop-nav">
-        <a href="/" class="nav-item">
-          <i class="fa-solid fa-house"></i>
-          <span>Home</span>
-        </a>
-        <a href="/leaderboard" class="nav-item active">
-          <i class="fa-solid fa-trophy"></i>
-          <span>Leaderboards</span>
-        </a>
+        <a href="/" class="nav-item"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="/leaderboard" class="nav-item active"><i class="fa-solid fa-trophy"></i><span>Leaderboards</span></a>
       </div>
       <div class="menu-toggle">
-        <button onclick="openNav()" aria-label="Open menu">
-          <i class="fa-solid fa-bars"></i>
-        </button>
+        <button onclick="openNav()" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
       </div>
     </div>
   </header>
+
+  <!-- Leaderboard Section -->
   <section class="swiperSection">
     <div class="container">
       <div class="row">
@@ -175,11 +158,7 @@
           <div class="swiperContent">
             <div class="paymentBtn d-flex align-center justify-center scale-in" id="gf-BtnContainer">
               <button class="gf-btn stagger-item" onclick="window.location.href='/leaderboard/rainbet'">
-                <img
-                  src="https://i.postimg.cc/mthzQ70c/image.png"
-                  alt="Roobet"
-                  class="img-fluid paymentLogo"
-                />
+                <img src="https://i.postimg.cc/mthzQ70c/image.png" alt="Roobet" class="img-fluid paymentLogo" />
               </button>
             </div>
             <div class="gallery sets">
@@ -195,22 +174,16 @@
                     </button>
                   </div>
                 </div>
-                <!-- Date Range + Countdown Area -->
+
+                <!-- Countdown -->
                 <div id="date-range-container" class="countdown-container"></div>
 
+                <!-- Top 3 Boxes -->
                 <div class="row gridRow d-flex align-center justify-center">
                   <div class="box-1 box stagger-item">
                     <div class="imgNumberBox">
-                      <img
-                        src="https://i.postimg.cc/sXFPrDBk/rainbetlogo.png"
-                        alt=""
-                        class="img-fluid"
-                        id="user-2-img"
-                      />
-                      <div class="boxNumber">
-                        <p>2</p>
-                        <i class="fa-solid fa-diamond"></i>
-                      </div>
+                      <img src="https://i.postimg.cc/sXFPrDBk/rainbetlogo.png" alt="" class="img-fluid" id="user-2-img" />
+                      <div class="boxNumber"><p>2</p><i class="fa-solid fa-diamond"></i></div>
                     </div>
                     <h1 class="mainHeading" id="user-2-name">...</h1>
                     <p class="mainPara">Wagered</p>
@@ -218,26 +191,16 @@
                       <img src="" alt="" class="coin-icon" id="coin-icon-2" />
                       <p id="user-2-wagered">0.00</p>
                     </div>
-                    <div class="underlineTextLogo d-flex align-center">
-                      <div class="underline"></div>
-                    </div>
                     <div class="priceBtn d-flex align-center justify-center">
                       <img src="" alt="" class="coin-icon" id="prize-coin-icon-2" />
                       <p id="user-2-price">0.00</p>
                     </div>
                   </div>
+
                   <div class="box-2 box stagger-item">
                     <div class="imgNumberBox">
-                      <img
-                        src="https://i.postimg.cc/sXFPrDBk/rainbetlogo.png"
-                        alt=""
-                        class="img-fluid"
-                        id="user-1-img"
-                      />
-                      <div class="boxNumber">
-                        <p>1</p>
-                        <i class="fa-solid fa-diamond"></i>
-                      </div>
+                      <img src="https://i.postimg.cc/sXFPrDBk/rainbetlogo.png" alt="" class="img-fluid" id="user-1-img" />
+                      <div class="boxNumber"><p>1</p><i class="fa-solid fa-diamond"></i></div>
                     </div>
                     <h1 class="mainHeading" id="user-1-name">...</h1>
                     <p class="mainPara">Wagered</p>
@@ -245,26 +208,16 @@
                       <img src="" alt="" class="coin-icon" id="coin-icon-1" />
                       <p id="user-1-wagered">0.00</p>
                     </div>
-                    <div class="underlineTextLogo d-flex align-center">
-                      <div class="underline"></div>
-                    </div>
                     <div class="priceBtn d-flex align-center justify-center">
                       <img src="" alt="" class="coin-icon" id="prize-coin-icon-1" />
                       <p id="user-1-price">0.00</p>
                     </div>
                   </div>
+
                   <div class="box-3 box stagger-item">
                     <div class="imgNumberBox">
-                      <img
-                        src="https://i.postimg.cc/sXFPrDBk/rainbetlogo.png"
-                        alt=""
-                        class="img-fluid"
-                        id="user-3-img"
-                      />
-                      <div class="boxNumber">
-                        <p>3</p>
-                        <i class="fa-solid fa-diamond"></i>
-                      </div>
+                      <img src="https://i.postimg.cc/sXFPrDBk/rainbetlogo.png" alt="" class="img-fluid" id="user-3-img" />
+                      <div class="boxNumber"><p>3</p><i class="fa-solid fa-diamond"></i></div>
                     </div>
                     <h1 class="mainHeading" id="user-3-name">...</h1>
                     <p class="mainPara">Wagered</p>
@@ -272,15 +225,14 @@
                       <img src="" alt="" class="coin-icon" id="coin-icon-3" />
                       <p id="user-3-wagered">0.00</p>
                     </div>
-                    <div class="underlineTextLogo d-flex align-center">
-                      <div class="underline"></div>
-                    </div>
                     <div class="priceBtn d-flex align-center justify-center">
                       <img src="" alt="" class="coin-icon" id="prize-coin-icon-3" />
                       <p id="user-3-price">0.00</p>
                     </div>
                   </div>
                 </div>
+
+                <!-- Leaderboard Table -->
                 <div class="row leaderBoardTable fade-in">
                   <div class="col-12" style="overflow-x: auto;">
                     <table id="customers">
@@ -293,42 +245,28 @@
                     </table>
                   </div>
                 </div>
-              </div>
+              </div><!-- gf-column -->
             </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- Footer -->
   <footer>
     <div class="container">
       <div class="footer-compact">
         <div class="footer-main">
           <div class="social-icons">
-            <a href="https://www.instagram.com/McPlayGT" aria-label="Instagram"
-              ><i class="fa-brands fa-instagram"></i
-            ></a>
-            <a href="https://discord.gg/6FEn66ymvc" aria-label="Discord"
-              ><i class="fa-brands fa-discord"></i
-            ></a>
-            <a href="https://kick.com/mcplaygt" aria-label="Kick"
-              ><i class="fa-brands fa-kickstarter"></i
-            ></a>
-            <a href="https://tiktok.com/@mcplaygt" aria-label="TikTok"
-              ><i class="fa-brands fa-tiktok"></i
-            ></a>
-            <a href="https://twitter.com/mcplaygt" aria-label="Twitter"
-              ><i class="fa-brands fa-twitter"></i
-            ></a>
-            <a href="https://youtube.com/c/mcplaygt" aria-label="YouTube"
-              ><i class="fa-brands fa-youtube"></i
-            ></a>
-            <a href="https://twitch.tv/McPlayGT" aria-label="Twitch"
-              ><i class="fa-brands fa-twitch"></i
-            ></a>
-            <a href="https://discord.gg/ktbvU9DhMp" aria-label="Discord"
-              ><i class="fa-brands fa-discord"></i
-            ></a>
+            <a href="https://www.instagram.com/McPlayGT" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://discord.gg/6FEn66ymvc" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
+            <a href="https://kick.com/mcplaygt" aria-label="Kick"><i class="fa-brands fa-kickstarter"></i></a>
+            <a href="https://tiktok.com/@mcplaygt" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://twitter.com/mcplaygt" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://youtube.com/c/mcplaygt" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://twitch.tv/McPlayGT" aria-label="Twitch"><i class="fa-brands fa-twitch"></i></a>
+            <a href="https://discord.gg/ktbvU9DhMp" aria-label="Discord"><i class="fa-brands fa-discord"></i></a>
           </div>
           <div class="footer-links">
             <a href="/">Home</a>
@@ -337,15 +275,15 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <p class="disclaimer">
-            Gamble responsibly (18+). We do not take responsibility for any losses
-            from gambling sites linked or promoted on our website.
-          </p>
+          <p class="disclaimer">Gamble responsibly (18+). We do not take responsibility for any losses from
+            gambling sites linked or promoted on our website.</p>
           <p class="copyright">© 2025 McPlayGT</p>
         </div>
       </div>
     </div>
   </footer>
+
+  <!-- Scripts -->
   <script>
     const siteConfig = {
       rainbet: {
@@ -355,29 +293,19 @@
         coinIcon: '',
         coinSymbol: '$',
         rewardStructure: {
-          1: 400,
-          2: 200,
-          3: 100,
-          4: 50,
-          5: 25,
-          6: 25,
-          7: 0,
-          8: 0,
-          9: 0,
-          10: 0,
-        },
+          1: 400,2: 200,3: 100,4: 50,5: 25,6: 25,7: 0,8: 0,9: 0,10: 0,
+        }
       },
     };
 
     function getCurrentSite() {
       const path = window.location.pathname;
       const match = path.match(/\/leaderboard\/(\w+)/);
-      return match ? match[1] : 'rainbet';
+      return match ? match[1] : 'rainbet'; 
     }
-
     function updateActiveButton() {
       const site = getCurrentSite();
-      document.querySelectorAll('.gf-btn').forEach((btn) => {
+      document.querySelectorAll('.gf-btn').forEach(btn => {
         btn.classList.remove('gf-btn-active');
         const onclickAttr = btn.getAttribute('onclick');
         const match = onclickAttr && onclickAttr.match(/\/leaderboard\/(\w+)/);
@@ -386,7 +314,6 @@
         }
       });
     }
-
     function updateSiteContent() {
       const site = getCurrentSite();
       const config = siteConfig[site];
@@ -394,61 +321,27 @@
       codeBtn.textContent = `CODE: ${config.code}`;
       codeBtn.onclick = () => window.open(config.url, '_blank');
       const rulesBtn = document.getElementById('rules-btn');
-      if (site === 'rainbet') {
-        rulesBtn.style.display = 'inline-block';
-      } else {
-        rulesBtn.style.display = 'none';
-      }
-      for (let i = 1; i <= 3; i++) {
-        const coinIcon = document.getElementById(`coin-icon-${i}`);
-        if (coinIcon) {
-          if (config.coinIcon) {
-            coinIcon.src = config.coinIcon;
-            coinIcon.style.width = '20px';
-            coinIcon.style.height = '20px';
-            coinIcon.style.marginRight = '5px';
-            coinIcon.style.display = 'inline';
-          } else {
-            coinIcon.style.display = 'none';
-          }
-        }
-        const prizeCoinIcon = document.getElementById(`prize-coin-icon-${i}`);
-        if (prizeCoinIcon) {
-          if (config.coinIcon) {
-            prizeCoinIcon.src = config.coinIcon;
-            prizeCoinIcon.style.width = '20px';
-            prizeCoinIcon.style.height = '20px';
-            prizeCoinIcon.style.marginRight = '5px';
-            prizeCoinIcon.style.display = 'inline';
-          } else {
-            prizeCoinIcon.style.display = 'none';
-          }
-        }
-      }
+      rulesBtn.style.display = site === 'rainbet' ? 'inline-block' : 'none';
     }
-
     const truncateText = (text, maxLength = 12) => {
       return text?.length > maxLength ? text.substring(0, maxLength) + '...' : text;
     };
-
     function getPrizeForRank(rank, rewardStructure, coinSymbol) {
       const prize = rewardStructure[rank];
       if (prize !== undefined) {
-        return `${coinSymbol} ${prize.toLocaleString('en-US', {
-          minimumFractionDigits: 0,
-          maximumFractionDigits: 0,
-        })}`;
+        return `${coinSymbol} ${prize.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
       }
       return 'N/A';
     }
 
-    // For toggle state
-    let showingPrevLeaderboard = false;
-
-    // Countdown interval handle
-    let timerInterval = null;
-
-    // Formatting date "1st Sep 2025"
+    // Countdown helpers
+    function getCurrentLeaderboardRange() {
+      const now = new Date();
+      return {
+        start: new Date(now.getFullYear(), now.getMonth(), 1),
+        end: new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59)
+      };
+    }
     function formatDateShort(date) {
       const day = date.getDate();
       let suffix = 'th';
@@ -459,58 +352,28 @@
       const year = date.getFullYear();
       return `${day}${suffix} ${month} ${year}`;
     }
-
-    function getCurrentLeaderboardRange() {
-      const now = new Date();
-      return {
-        start: new Date(now.getFullYear(), now.getMonth(), 1),
-        end: new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59),
-      };
-    }
-
-    // Show date and countdown or just date for previous
+    let timerInterval = null;
     function showDateAndCountdown(usePrev) {
       const container = document.getElementById('date-range-container');
       container.innerHTML = '';
       if (usePrev) {
-        // Show previous month range only, no countdown
         const now = new Date();
         const prevFrom = new Date(now.getFullYear(), now.getMonth() - 1, 1);
         const prevTo = new Date(now.getFullYear(), now.getMonth(), 0, 23, 59, 59);
-        container.innerHTML = `<div class="date-range">${formatDateShort(
-          prevFrom
-        )} - ${formatDateShort(prevTo)}</div>
+        container.innerHTML = `<div class="date-range">${formatDateShort(prevFrom)} - ${formatDateShort(prevTo)}</div>
           <div id="date-message" style="color:#999; font-size:14px;">This leaderboard has ended.</div>`;
         if (timerInterval) clearInterval(timerInterval);
-        timerInterval = null;
       } else {
-        // Show current month date range + countdown
         const { start, end } = getCurrentLeaderboardRange();
-        container.innerHTML = `<div class="date-range">${formatDateShort(
-          start
-        )} - ${formatDateShort(end)}</div>
+        container.innerHTML = `<div class="date-range">${formatDateShort(start)} - ${formatDateShort(end)}</div>
           <div style="margin-bottom:6px; color:#bbb;">Ends in:</div>
           <div class="count-down">
-            <div class="counter">
-              <span class="days">00</span>
-              <div class="label">Days</div>
-            </div>
-            <div class="counter">
-              <span class="hours">00</span>
-              <div class="label">Hours</div>
-            </div>
-            <div class="counter">
-              <span class="minutes">00</span>
-              <div class="label">Minutes</div>
-            </div>
-            <div class="counter">
-              <span class="seconds">00</span>
-              <div class="label">Seconds</div>
-            </div>
+            <div class="counter"><span class="days">00</span><div class="label">Days</div></div>
+            <div class="counter"><span class="hours">00</span><div class="label">Hours</div></div>
+            <div class="counter"><span class="minutes">00</span><div class="label">Minutes</div></div>
+            <div class="counter"><span class="seconds">00</span><div class="label">Seconds</div></div>
           </div>`;
-
         if (timerInterval) clearInterval(timerInterval);
-
         function updateCountdown() {
           const now = new Date().getTime();
           const distance = end.getTime() - now;
@@ -518,9 +381,7 @@
           let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
           let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-          if (distance < 0) {
-            days = hours = minutes = seconds = 0;
-          }
+          if (distance < 0) { days = hours = minutes = seconds = 0; }
           container.querySelector('.days').textContent = String(days).padStart(2, '0');
           container.querySelector('.hours').textContent = String(hours).padStart(2, '0');
           container.querySelector('.minutes').textContent = String(minutes).padStart(2, '0');
@@ -531,6 +392,8 @@
       }
     }
 
+    // Leaderboard
+    let showingPrevLeaderboard = false;
     async function updateLeaderboard(usePrev = false) {
       try {
         const site = getCurrentSite();
@@ -539,7 +402,6 @@
           : 'https://Sutchyyyslotsdata.onrender.com/leaderboard/top14';
         const response = await fetch(url);
         const data = await response.json();
-
         const config = siteConfig[site];
         data.sort((a, b) => b.weightedWager - a.weightedWager);
 
@@ -547,72 +409,35 @@
           const user = data[i - 1];
           const rank = i;
           if (user) {
-            document.getElementById(`user-${i}-img`).src =
-              user.img || 'https://i.postimg.cc/sXFPrDBk/rainbetlogo.png';
-            const wageredText = user.weightedWager.toLocaleString('en-US', {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            });
-            document.getElementById(`user-${i}-wagered`).textContent = `${config.coinSymbol} ${wageredText}`;
+            document.getElementById(`user-${i}-img`).src = user.img || 'https://i.postimg.cc/sXFPrDBk/rainbetlogo.png';
+            document.getElementById(`user-${i}-wagered`).textContent = `${config.coinSymbol} ${user.weightedWager.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}`;
             document.getElementById(`user-${i}-name`).textContent = truncateText(user.username);
-            const priceElement = document.getElementById(`user-${i}-price`);
-            const prizeAmount = getPrizeForRank(rank, config.rewardStructure, config.coinSymbol);
-            priceElement.textContent = prizeAmount;
-            const prizeCoinIcon = document.getElementById(`prize-coin-icon-${i}`);
-            if (prizeAmount !== 'N/A' && config.coinIcon) {
-              prizeCoinIcon.style.display = 'inline';
-            } else {
-              prizeCoinIcon.style.display = 'none';
-            }
+            document.getElementById(`user-${i}-price`).textContent = getPrizeForRank(rank, config.rewardStructure, config.coinSymbol);
           } else {
             document.getElementById(`user-${i}-img`).src = 'https://i.postimg.cc/sXFPrDBk/rainbetlogo.png';
             document.getElementById(`user-${i}-name`).textContent = '...';
             document.getElementById(`user-${i}-wagered`).textContent = '0.00';
             document.getElementById(`user-${i}-price`).textContent = 'N/A';
-            const prizeCoinIcon = document.getElementById(`prize-coin-icon-${i}`);
-            if (prizeCoinIcon) prizeCoinIcon.style.display = 'none';
           }
         }
 
         const table = document.getElementById('customers');
-        while (table.rows.length > 1) {
-          table.deleteRow(1);
-        }
+        while (table.rows.length > 1) table.deleteRow(1);
         data.slice(3).forEach((user, index) => {
           const rank = index + 4;
           const row = table.insertRow();
           row.innerHTML = `
-              <th>${rank}.</th>
-              <td>
-                <div class="d-flex align-center">
-                  <img src="${user.img || 'https://i.postimg.cc/sXFPrDBk/rainbetlogo.png'}" alt="" class="img-fluid" />
-                  <p>${truncateText(user.username)}</p>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-center">
-                  ${
-                    config.coinIcon
-                      ? `<img src="${config.coinIcon}" alt="" style="width: 20px; height: 20px; margin-right: 5px;" />`
-                      : ''
-                  }
-                  <p>${config.coinSymbol} ${user.weightedWager.toLocaleString('en-US', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}</p>
-                </div>
-              </td>
-              <td>
-                <div class="d-flex align-center">
-                  <p>${getPrizeForRank(rank, config.rewardStructure, config.coinSymbol)}</p>
-                </div>
-              </td>
-            `;
+            <th>${rank}.</th>
+            <td><div class="d-flex align-center"><img src="${user.img || 'https://i.postimg.cc/sXFPrDBk/rainbetlogo.png'}" alt="" class="img-fluid"><p>${truncateText(user.username)}</p></div></td>
+            <td><p>${config.coinSymbol} ${user.weightedWager.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</p></td>
+            <td><p>${getPrizeForRank(rank, config.rewardStructure, config.coinSymbol)}</p></td>
+          `;
         });
 
         const headingElement = document.getElementById('leaderboard-heading');
         const leaderboardType = usePrev ? 'PREVIOUS' : 'CURRENT';
-        headingElement.innerHTML = `${config.name.toUpperCase()} ${leaderboardType} WAGER LEADERBOARD`;
+        const siteName = config.name.toUpperCase();
+        headingElement.innerHTML = `${siteName} ${leaderboardType} WAGER LEADERBOARD`;
 
         showDateAndCountdown(usePrev);
       } catch (error) {
@@ -632,30 +457,19 @@
       }
     }
 
-    function openRulesModal() {
-      document.getElementById('rulesModal').classList.add('show');
-    }
-    function closeRulesModal() {
-      document.getElementById('rulesModal').classList.remove('show');
-    }
+    function openRulesModal() { document.getElementById('rulesModal').classList.add('show'); }
+    function closeRulesModal() { document.getElementById('rulesModal').classList.remove('show'); }
 
     document.addEventListener('DOMContentLoaded', () => {
       updateActiveButton();
       updateSiteContent();
       updateLeaderboard();
-      const rulesBtn = document.getElementById('rules-btn');
-      if (rulesBtn) {
-        rulesBtn.addEventListener('click', openRulesModal);
-      }
-      const prevBtn = document.getElementById('prev-leaderboard-btn');
-      if (prevBtn) {
-        prevBtn.addEventListener('click', function () {
-          showingPrevLeaderboard = !showingPrevLeaderboard;
-          updatePrevToggleLeaderboard();
-        });
-      }
+      document.getElementById('rules-btn').addEventListener('click', openRulesModal);
+      document.getElementById('prev-leaderboard-btn').addEventListener('click', () => {
+        showingPrevLeaderboard = !showingPrevLeaderboard;
+        updatePrevToggleLeaderboard();
+      });
     });
-
     window.addEventListener('popstate', () => {
       updateActiveButton();
       updateSiteContent();
